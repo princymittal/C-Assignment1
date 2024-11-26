@@ -1,0 +1,492 @@
+Assignment 3 in c sharp
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Assignment_3
+{
+    internal class Program
+    {
+
+        class Employee
+        {
+            // Properties
+            public string Name { get; set; }
+            public int Age { get; set; }
+            public decimal Salary { get; set; }
+
+            // Constructor to initialize employee details
+            public Employee(string name, int age, decimal salary)
+            {
+                Name = name;
+                Age = age;
+                Salary = salary;
+            }
+
+            // Method to display employee details
+            public void DisplayEmployeeDetails()
+            {
+                Console.WriteLine("Employee Details:");
+                Console.WriteLine($"Name: {Name}");
+                Console.WriteLine($"Age: {Age}");
+                Console.WriteLine($"Salary: ${Salary:F2}");
+            }
+        }
+
+        class program
+        {
+            static void Main()
+            {
+                // Create an instance of the Employee class
+                Employee employee = new Employee("John Doe", 30, 50000m);
+
+                // Display the employee details
+                employee.DisplayEmployeeDetails();
+            }
+        }
+    }
+}
+
+// question 2
+class BankAccount
+{
+    // Properties
+    public string AccountNumber { get; private set; }
+    public string AccountHolderName { get; private set; }
+    public decimal Balance { get; private set; }
+
+    // Constructor to initialize the account details
+    public BankAccount(string accountNumber, string accountHolderName, decimal initialBalance)
+    {
+        AccountNumber = accountNumber;
+        AccountHolderName = accountHolderName;
+        Balance = initialBalance;
+    }
+
+    // Method for deposit
+    public void Deposit(decimal amount)
+    {
+        if (amount > 0)
+        {
+            Balance += amount;
+            Console.WriteLine($"Deposited: ${amount:F2}. New Balance: ${Balance:F2}");
+        }
+        else
+        {
+            Console.WriteLine("Deposit amount must be greater than zero.");
+        }
+    }
+
+    // Method for withdrawal
+    public void Withdraw(decimal amount)
+    {
+        if (amount > 0)
+        {
+            if (amount <= Balance)
+            {
+                Balance -= amount;
+                Console.WriteLine($"Withdrew: ${amount:F2}. New Balance: ${Balance:F2}");
+            }
+            else
+            {
+                Console.WriteLine("Insufficient balance for this withdrawal.");
+            }
+        }
+        else
+        {
+            Console.WriteLine("Withdrawal amount must be greater than zero.");
+        }
+    }
+
+    // Method to display account details
+    public void DisplayAccountDetails()
+    {
+        Console.WriteLine("\nAccount Details:");
+        Console.WriteLine($"Account Number: {AccountNumber}");
+        Console.WriteLine($"Account Holder: {AccountHolderName}");
+        Console.WriteLine($"Balance: ${Balance:F2}");
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        // Create an instance of the BankAccount class
+        BankAccount account = new BankAccount("1234567890", "John Doe", 1000.00m);
+
+        // Display the initial account details
+        account.DisplayAccountDetails();
+
+        // Perform some deposit and withdrawal operations
+        account.Deposit(500.00m);
+        account.Withdraw(200.00m);
+        account.Withdraw(1500.00m); // This will fail due to insufficient balance
+
+        // Display the updated account details
+        account.DisplayAccountDetails();
+    }
+}
+
+
+//Question 3
+
+
+public static class MathHelper
+{
+    // Static method to calculate the average of an array of integers
+    public static double CalculateAverage(int[] numbers)
+    {
+        if (numbers == null || numbers.Length == 0)
+        {
+            throw new ArgumentException("Array cannot be null or empty.");
+        }
+
+        int sum = 0;
+        foreach (int num in numbers)
+        {
+            sum += num;
+        }
+
+        return (double)sum / numbers.Length;
+    }
+}
+
+class program
+{
+    static void Main()
+    {
+        // Example array of integers
+        int[] numbers = { 10, 20, 30, 40, 50 };
+
+        try
+        {
+            // Calculate and display the average using the static method
+            double average = MathHelper.CalculateAverage(numbers);
+            Console.WriteLine($"The average of the numbers is: {average}");
+        }
+        catch (ArgumentException ex)
+        {
+            // Handle potential exceptions
+            Console.WriteLine(ex.Message);
+        }
+    }
+}
+
+
+
+//Question 4
+
+
+
+public static class Logger
+{
+    // Static method to log messages to the console
+    public static void LogMessage(string message)
+    {
+        if (string.IsNullOrEmpty(message))
+        {
+            Console.WriteLine("Error: Message cannot be null or empty.");
+            return;
+        }
+
+        Console.WriteLine($"[LOG]: {message}");
+    }
+}
+
+class program1
+{
+    static void Main()
+    {
+        // Demonstrating the usage of the Logger class
+        Logger.LogMessage("Application started.");
+        Logger.LogMessage("Performing some operations...");
+
+        // Simulate an error or warning
+        Logger.LogMessage("Warning: Something might be wrong with the input.");
+
+        // Demonstrate logging an empty message
+        Logger.LogMessage("");
+
+        Logger.LogMessage("Application finished.");
+    }
+}
+
+
+//Question 5
+
+// Question 6
+
+//Question 7
+
+public abstract class Shape
+{
+    // Abstract method to calculate area
+    public abstract double CalculateArea();
+}
+
+public class Circle : Shape
+{
+    public double Radius { get; set; }
+
+    // Constructor to initialize the radius of the circle
+    public Circle(double radius)
+    {
+        Radius = radius;
+    }
+
+    // Implement the CalculateArea method for Circle
+    public override double CalculateArea()
+    {
+        return Math.PI * Radius * Radius;  // Area = π * r^2
+    }
+}
+
+public class Rectangle : Shape
+{
+    public double Length { get; set; }
+    public double Width { get; set; }
+
+    // Constructor to initialize the dimensions of the rectangle
+    public Rectangle(double length, double width)
+    {
+        Length = length;
+        Width = width;
+    }
+
+    // Implement the CalculateArea method for Rectangle
+    public override double CalculateArea()
+    {
+        return Length * Width;  // Area = length * width
+    }
+}
+
+class program2
+{
+    static void Main()
+    {
+        // Create a Circle object with a radius of 5
+        Shape circle = new Circle(5);
+        Console.WriteLine($"Circle Area: {circle.CalculateArea()}");
+
+        // Create a Rectangle object with length 10 and width 4
+        Shape rectangle = new Rectangle(10, 4);
+        Console.WriteLine($"Rectangle Area: {rectangle.CalculateArea()}");
+    }
+}
+
+// Question 8
+
+
+public abstract class Animal
+{
+    // Properties common to all animals
+    public string Name { get; set; }
+    public int Age { get; set; }
+
+    // Constructor to initialize the properties
+    public Animal(string name, int age)
+    {
+        Name = name;
+        Age = age;
+    }
+
+    // Abstract method for sound (to be implemented by derived classes)
+    public abstract void MakeSound();
+}
+
+public class Dog : Animal
+{
+    // Constructor to initialize Dog's properties
+    public Dog(string name, int age) : base(name, age) { }
+
+    // Implementing the MakeSound method for Dog
+    public override void MakeSound()
+    {
+        Console.WriteLine($"{Name} says: Woof Woof!");
+    }
+
+    // Dog specific method
+    public void Fetch()
+    {
+        Console.WriteLine($"{Name} is fetching the ball!");
+    }
+}
+
+public class Cat : Animal
+{
+    // Constructor to initialize Cat's properties
+    public Cat(string name, int age) : base(name, age) { }
+
+    // Implementing the MakeSound method for Cat
+    public override void MakeSound()
+    {
+        Console.WriteLine($"{Name} says: Meow!");
+    }
+
+    // Cat specific method
+    public void Scratch()
+    {
+        Console.WriteLine($"{Name} is scratching the post!");
+    }
+}
+
+class program3
+{
+    static void Main()
+    {
+        // Create instances of Dog and Cat
+        Animal dog = new Dog("Buddy", 3);
+        Animal cat = new Cat("Whiskers", 2);
+
+        // Call MakeSound method for each animal
+        dog.MakeSound();  // Output: Buddy says: Woof Woof!
+        cat.MakeSound();  // Output: Whiskers says: Meow!
+
+        // Calling unique methods of Dog and Cat
+        (dog as Dog)?.Fetch();       // Output: Buddy is fetching the ball!
+        (cat as Cat)?.Scratch();     // Output: Whiskers is scratching the post!
+    }
+}
+
+
+// Question 9
+
+
+
+// Base class Vehicle
+public class Vehicle
+{
+    // Method to start the engine
+    public void StartEngine()
+    {
+        Console.WriteLine("Engine started.");
+    }
+
+    // Method to stop the engine
+    public void StopEngine()
+    {
+        Console.WriteLine("Engine stopped.");
+    }
+}
+
+// Derived class Car, sealed to prevent further inheritance
+public sealed class Car : Vehicle
+{
+    // Car specific method
+    public void Honk()
+    {
+        Console.WriteLine("Car honking: Beep beep!");
+    }
+}
+
+public class program4
+{
+    static void Main()
+    {
+        // Create an instance of Car
+        Car myCar = new Car();
+        myCar.StartEngine();  // Inherited method from Vehicle
+        myCar.Honk();         // Method specific to Car
+        myCar.StopEngine();   // Inherited method from Vehicle
+
+        // Trying to inherit from Car (uncomment to see the error)
+        // public class SportsCar : Car  // This will cause a compile-time error
+        // {
+        //     public void TurboBoost() 
+        //     {
+        //         Console.WriteLine("Turbo boost activated!");
+        //     }
+        // }
+    }
+}
+
+
+//Question 10
+
+using System;
+
+// Base class BankAccount
+public class BankAccount
+{
+    // Properties for Account Number and Balance
+    public string AccountNumber { get; set; }
+    public double Balance { get; set; }
+
+    // Constructor to initialize Account Number and Balance
+    public BankAccount(string accountNumber, double initialBalance)
+    {
+        AccountNumber = accountNumber;
+        Balance = initialBalance;
+    }
+
+    // Method to deposit money into the account
+    public void Deposit(double amount)
+    {
+        if (amount > 0)
+        {
+            Balance += amount;
+            Console.WriteLine($"Deposited: {amount}, New Balance: {Balance}");
+        }
+        else
+        {
+            Console.WriteLine("Deposit amount must be greater than zero.");
+        }
+    }
+
+    // Method to withdraw money from the account
+    public void Withdraw(double amount)
+    {
+        if (amount > 0 && amount <= Balance)
+        {
+            Balance -= amount;
+            Console.WriteLine($"Withdrawn: {amount}, New Balance: {Balance}");
+        }
+        else
+        {
+            Console.WriteLine("Invalid withdrawal amount or insufficient funds.");
+        }
+    }
+}
+
+// Sealed class SavingsAccount derived from BankAccount
+public sealed class SavingsAccount : BankAccount
+{
+    // Property for the interest rate
+    public double InterestRate { get; set; }
+
+    // Constructor to initialize SavingsAccount with account number, balance, and interest rate
+    public SavingsAccount(string accountNumber, double initialBalance, double interestRate)
+        : base(accountNumber, initialBalance)
+    {
+        InterestRate = interestRate;
+    }
+
+    // Method to calculate and add interest to the balance
+    public void CalculateInterest()
+    {
+        double interest = Balance * InterestRate / 100;
+        Balance += interest;
+        Console.WriteLine($"Interest at {InterestRate}%: {interest}");
+        Console.WriteLine($"New Balance after interest: {Balance}");
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        // Create an instance of SavingsAccount
+        SavingsAccount mySavingsAccount = new SavingsAccount("SA12345", 1000, 5);
+
+        // Perform some transactions
+        mySavingsAccount.Deposit(500);  // Deposit money
+        mySavingsAccount.Withdraw(200); // Withdraw money
+
+        // Calculate and add interest to the balance
+        mySavingsAccount.CalculateInterest(); // Calculate interest and update balance
+    }
+}
